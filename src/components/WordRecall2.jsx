@@ -43,7 +43,7 @@ function WordRecall2() {
       <div className="max-w-2xl w-full">
         <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-10">
           <button
-            onClick={() => navigate('/palavras1')}
+            onClick={() => navigate('/word-recall-1')}
             className="flex items-center text-gray-500 hover:text-gray-700 mb-6 transition-colors"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />

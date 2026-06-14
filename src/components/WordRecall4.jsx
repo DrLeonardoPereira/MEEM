@@ -55,12 +55,12 @@ function WordRecall4() {
               <BookOpen className="w-8 h-8 text-primary-600" />
             </div>
             <h2 className="text-3xl font-bold text-gray-800">
-              Selecione 3 Palavras
+              Lembre-se daquelas 3 palavras
             </h2>
           </div>
           
           <p className="text-gray-500 mb-2">
-            Escolha 3 palavras das opções abaixo (palavras reembaralhadas)
+            Lembre-se daquelas 3 palavras memorizou, e as indique novamente
           </p>
           
           <div className="mb-6 flex items-center justify-center gap-2">

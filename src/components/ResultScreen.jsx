@@ -10,12 +10,27 @@ function ResultScreen() {
   const totalQuestions = 5
   
   const today = new Date()
+  const month = today.getMonth()
+  const day = today.getDate()
+  
+  const getSeasonFromDate = (m, d) => {
+    if ((m === 2 && d >= 20) || (m === 3) || (m === 4) || (m === 5 && d <= 20)) {
+      return 2 // Outono: 20/03 a 20/06
+    } else if ((m === 5 && d >= 21) || (m === 6) || (m === 7) || (m === 8 && d <= 21)) {
+      return 3 // Inverno: 21/06 a 21/09
+    } else if ((m === 8 && d >= 22) || (m === 9) || (m === 10) || (m === 11 && d <= 20)) {
+      return 0 // Primavera: 22/09 a 20/12
+    } else {
+      return 1 // Verão: 21/12 a 19/03
+    }
+  }
+  
   const correctAnswers = {
     diaSemana: today.getDay(),
     ano: today.getFullYear(),
     diaMes: today.getDate(),
     mes: today.getMonth(),
-    estacao: Math.floor(today.getMonth() / 3)
+    estacao: getSeasonFromDate(month, day)
   }
 
   const diasSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']

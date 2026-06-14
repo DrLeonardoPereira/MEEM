@@ -42,12 +42,27 @@ export function GameProvider({ children }) {
 
   const calculateBlock1Score = () => {
     const today = new Date()
+    const month = today.getMonth()
+    const day = today.getDate()
+    
+    const getSeasonFromDate = (m, d) => {
+      if ((m === 2 && d >= 20) || (m === 3) || (m === 4) || (m === 5 && d <= 20)) {
+        return 2 // Outono: 20/03 a 20/06
+      } else if ((m === 5 && d >= 21) || (m === 6) || (m === 7) || (m === 8 && d <= 21)) {
+        return 3 // Inverno: 21/06 a 21/09
+      } else if ((m === 8 && d >= 22) || (m === 9) || (m === 10) || (m === 11 && d <= 20)) {
+        return 0 // Primavera: 22/09 a 20/12
+      } else {
+        return 1 // Verão: 21/12 a 19/03
+      }
+    }
+    
     const correctAnswers = {
       diaSemana: today.getDay(),
       ano: today.getFullYear(),
       diaMes: today.getDate(),
       mes: today.getMonth(),
-      estacao: Math.floor(today.getMonth() / 3)
+      estacao: getSeasonFromDate(month, day)
     }
 
     let score = 0
@@ -61,11 +76,27 @@ export function GameProvider({ children }) {
   }
 
   const calculateBlock2Score = () => {
+    const getBrasiliaTime = () => {
+      const now = new Date()
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000)
+      const brasiliaOffset = -3
+      const brasiliaTime = new Date(utc + (3600000 * brasiliaOffset))
+      return brasiliaTime.getHours()
+    }
+  
+    const getDayNightFromTime = (hour) => {
+      if (hour >= 6 && hour < 18) {
+        return 'Dia'
+      } else {
+        return 'Noite'
+      }
+    }
+    
     const correctAnswers = {
       pais: 'Brasil',
       estado: 'Distrito Federal',
       construcao: 'Universidade',
-      diaNoite: 'Dia'
+      diaNoite: getDayNightFromTime(getBrasiliaTime())
     }
 
     let score = 0
@@ -82,11 +113,11 @@ export function GameProvider({ children }) {
   }
 
   const calculateBlock11Score = () => {
-    // 0.5 points per correctly placed pentagon (max 1 point)
+    // 1 point per correctly placed pentagon (max 2 points)
     let score = 0
     if (gameAnswers.pentagonos && gameAnswers.pentagonos.length > 0) {
       gameAnswers.pentagonos.forEach(pentagon => {
-        if (pentagon.correct) score += 0.5
+        if (pentagon.correct) score += 1
       })
     }
     return score
@@ -173,22 +204,22 @@ export function GameProvider({ children }) {
     const correctWords = ['pote', 'ralo', 'anzol']
     let score = 0
     
-    // Screen 1
+    // Screen 1: 1 point per correct word
     gameAnswers.palavras1.forEach(word => {
-      if (word && correctWords.includes(word.toLowerCase())) score += 0.34
+      if (word && correctWords.includes(word.toLowerCase())) score += 1
     })
     
-    // Screen 2
+    // Screen 2: 1 point per correct word
     gameAnswers.palavras2.forEach(word => {
-      if (word && correctWords.includes(word.toLowerCase())) score += 0.34
+      if (word && correctWords.includes(word.toLowerCase())) score += 1
     })
     
-    // Screen 3
+    // Screen 3: 1 point per correct word
     gameAnswers.palavras3.forEach(word => {
-      if (word && correctWords.includes(word.toLowerCase())) score += 0.34
+      if (word && correctWords.includes(word.toLowerCase())) score += 1
     })
     
-    return Math.round(score * 100) / 100
+    return score
   }
 
   return (

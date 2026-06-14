@@ -9,11 +9,27 @@ function Block2ResultScreen() {
   const score = calculateBlock2Score()
   const totalQuestions = 4
   
+  const getBrasiliaTime = () => {
+    const now = new Date()
+    const utc = now.getTime() + (now.getTimezoneOffset() * 60000)
+    const brasiliaOffset = -3
+    const brasiliaTime = new Date(utc + (3600000 * brasiliaOffset))
+    return brasiliaTime.getHours()
+  }
+  
+  const getDayNightFromTime = (hour) => {
+    if (hour >= 6 && hour < 18) {
+      return 'Dia'
+    } else {
+      return 'Noite'
+    }
+  }
+  
   const correctAnswers = {
     pais: 'Brasil',
     estado: 'Distrito Federal',
     construcao: 'Universidade',
-    diaNoite: 'Dia'
+    diaNoite: getDayNightFromTime(getBrasiliaTime())
   }
 
   const results = [
@@ -118,7 +134,7 @@ function Block2ResultScreen() {
           </div>
           
           <button
-            onClick={() => navigate('/palavras1')}
+            onClick={() => navigate('/instrucao-bloco3')}
             className="w-full flex items-center justify-center gap-3 py-4 px-6 rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
           >
             Continuar para Bloco 3

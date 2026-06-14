@@ -14,6 +14,7 @@ import StatesScreen from './components/StatesScreen'
 import BuildingScreen from './components/BuildingScreen'
 import DayNightScreen from './components/DayNightScreen'
 import Block2ResultScreen from './components/Block2ResultScreen'
+import Block3Instruction from './components/Block3Instruction'
 import WordRecall1 from './components/WordRecall1'
 import WordRecall2 from './components/WordRecall2'
 import WordRecall3 from './components/WordRecall3'
@@ -62,7 +63,8 @@ function App() {
           <Route path="/construcao" element={<BuildingScreen />} />
           <Route path="/dia-noite" element={<DayNightScreen />} />
           <Route path="/resultado-bloco2" element={<Block2ResultScreen />} />
-          <Route path="/palavras1" element={<WordRecall1 />} />
+          <Route path="/instrucao-bloco3" element={<Block3Instruction />} />
+          <Route path="/word-recall-1" element={<WordRecall1 />} />
           <Route path="/palavras2" element={<WordRecall2 />} />
           <Route path="/palavras3" element={<WordRecall3 />} />
           <Route path="/resultado-bloco3" element={<Block3ResultScreen />} />
